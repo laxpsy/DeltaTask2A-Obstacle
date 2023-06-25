@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,9 +28,11 @@ class MainActivity : AppCompatActivity() {
         val scoreText = findViewById<TextView>(R.id.scoreText)
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("highScore", 0)
-        val score: Int = sharedPreferences.getInt("score", 0)
-        if(score!= 0) {
-            scoreText.text = "Your score is $score"
+        val score: Float = sharedPreferences.getFloat("score", 0F)
+        val dec = DecimalFormat("#.###")
+        var scoreFormatted = dec.format(score)
+        if(score!= 0F) {
+            scoreText.text = "Your score is $scoreFormatted"
         }
         playButton.setOnClickListener()
         {

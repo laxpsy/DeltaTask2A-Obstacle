@@ -24,7 +24,7 @@ import java.util.Timer
 import java.util.TimerTask
 import java.util.logging.Handler
 import kotlin.system.exitProcess
-var score: Int = 0
+var score: Float = 0F
 class GameViewParent: AppCompatActivity() {
 
 
@@ -77,7 +77,7 @@ inner class GameView: SurfaceView, SurfaceHolder.Callback {
         sObstacleSprite = SObstacleSprite(resizeBitmaps((BitmapFactory.decodeResource(resources, R.drawable.sobstaclesprite)), masterList.squareSize, masterList.sObstacleHeight))
         lObstacleSprite = LObstacleSprite(resizeBitmaps((BitmapFactory.decodeResource(resources, R.drawable.lobstaclesprite)), masterList.squareSize, masterList.lObstacleHeight))
         groundSprite = GroundSprite(resizeBitmaps((BitmapFactory.decodeResource(resources, R.drawable.groundsprite)), Resources.getSystem().displayMetrics.widthPixels, groundHeight))
-        score = 0
+        score = 0F
         timer.scheduleAtFixedRate(increaseSpeed, 0, 5000)
     }
 
@@ -168,10 +168,10 @@ inner class GameView: SurfaceView, SurfaceHolder.Callback {
 
                 collided = false
 
-                if(score>300)
-                    score-=300
+                if(score>30F)
+                    score-=30F
                 else
-                    score=0
+                    score=0F
 
                 showToast("Penalty!", 1)
             }
@@ -185,16 +185,18 @@ inner class GameView: SurfaceView, SurfaceHolder.Callback {
 
         //scoring system
         if(!collided) {
-            score += 1
+            score += 0.1F
         }
         if(collided && !concluded)
         {
             concluded = true
-            showToast("Game Over! Your score is $score", 2)
-            if(score > sharedPreferences.getInt("score", 0)) {
-                editor.putInt("score", score)
+            showToast("Game Over! Your score is ${score}", 2)
+            if(score > sharedPreferences.getFloat("score", 0F)) {
+                editor.putFloat("score", score)
                 editor.apply()
             }
+            editor.putFloat("temp", score)
+            editor.apply()
             timer.cancel()
             sObstacleSprite.xVel = 0
             lObstacleSprite.xVel = 0
