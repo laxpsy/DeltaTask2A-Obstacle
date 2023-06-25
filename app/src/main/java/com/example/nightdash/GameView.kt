@@ -17,22 +17,27 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.animation.TranslateAnimation
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.google.android.material.color.utilities.Score
 import java.util.Timer
 import java.util.TimerTask
 import java.util.logging.Handler
 import kotlin.system.exitProcess
+var score: Int = 0
+class GameViewParent: AppCompatActivity() {
 
 
-class GameView: SurfaceView, SurfaceHolder.Callback {
+inner class GameView: SurfaceView, SurfaceHolder.Callback {
     private var thread: MainThread
+    lateinit var contextForActivity: Context
     private lateinit var blocksprite: BlockSprite
     private lateinit var sObstacleSprite: SObstacleSprite
     private lateinit var lObstacleSprite: LObstacleSprite
     private lateinit var groundSprite: GroundSprite
     private lateinit var animation: TranslateAnimation
     private val masterList = variables()
-    var score: Int = 0
+
     var collided: Boolean = false
     var firstCollided: Boolean = false
     val paint = Paint()
@@ -41,7 +46,6 @@ class GameView: SurfaceView, SurfaceHolder.Callback {
         override fun run() {
             sObstacleSprite.xVel+=1
             lObstacleSprite.xVel+=1
-            println("Speed Increased to ${masterList.gameSpeed}")
         }
     }
     val sharedPreferences: SharedPreferences = context.getSharedPreferences("highScore", 0)
@@ -60,6 +64,7 @@ class GameView: SurfaceView, SurfaceHolder.Callback {
         isFocusable = true
         paint.setColor(Color.WHITE)
         paint.textSize = 80F
+        contextForActivity = context
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -124,7 +129,6 @@ class GameView: SurfaceView, SurfaceHolder.Callback {
             blocksprite.yVel = masterList.jumpSpeed
             blocksprite.currentState = BlockSprite.state.Exhausted
         }
-
         return super.onTouchEvent(event)
     }
 
@@ -194,22 +198,26 @@ class GameView: SurfaceView, SurfaceHolder.Callback {
             timer.cancel()
             sObstacleSprite.xVel = 0
             lObstacleSprite.xVel = 0
-           // thread.onLose()
+            switchScreen(contextForActivity)
         }
     }
 
     fun showToast(text: String, id: Int)
     {
         val handler: android.os.Handler = android.os.Handler(Looper.getMainLooper())
-        handler.post(object: Runnable
-        {
-            override fun run() {
-                if(id == 1)
-                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+        handler.post {
+            if (id == 1)
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 
-                if(id == 2)
-                    Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-            }
-        })
+            if (id == 2)
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        }
+    }
+    }
+    fun switchScreen(context: Context)
+    {
+        Intent(context, ScoreScreen::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).apply {
+            context.startActivity(this)
+        }
     }
 }

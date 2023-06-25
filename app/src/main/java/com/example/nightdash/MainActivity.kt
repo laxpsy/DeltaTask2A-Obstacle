@@ -2,22 +2,17 @@ package com.example.nightdash
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowInsetsController
-import android.view.WindowManager
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.material.button.MaterialButton
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.splashTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -38,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
         playButton.setOnClickListener()
         {
-            setContentView(GameView(this))
+            Intent(this, CharacterSplashScreen::class.java).apply {
+                overridePendingTransition(androidx.appcompat.R.anim.abc_fade_in, androidx.appcompat.R.anim.abc_fade_out)
+                startActivity(this)
+            }
         }
     }
 }

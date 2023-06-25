@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="textView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/cubic</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="splashTheme">
+        <item name="android:windowBackground">@drawable/splashdrawable</item>
+    </style>
+</resources>

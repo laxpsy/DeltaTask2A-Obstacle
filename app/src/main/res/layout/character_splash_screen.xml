@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/actualsplashscreen"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/textView"
+        android:text="Your character is"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <TextView
+        android:id="@+id/charNameText"
+        style="@style/textView"
+        android:layout_width="500dp"
+        android:textAlignment="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.316"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.068"
+        tools:text="characterName"></TextView>
+
+    <TextView
+        android:id="@+id/charDesText"
+        style="@style/textView"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/charImage"
+        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charNameText"
+        app:layout_constraintVertical_bias="0.127"
+        tools:text="characterDescription"></TextView>
+
+    <ImageView
+        android:id="@+id/charImage"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.834"
+        tools:src="@mipmap/steelgreyic"></ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

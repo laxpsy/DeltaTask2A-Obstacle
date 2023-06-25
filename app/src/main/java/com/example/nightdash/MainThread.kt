@@ -8,11 +8,11 @@ import kotlin.Exception
 class MainThread : Thread
 {
     private lateinit var surfaceHolder: SurfaceHolder
-    private lateinit var gameView: GameView
+    private lateinit var gameView: GameViewParent.GameView
     private var running: Boolean = true
     private var canvas: Canvas? = null
 
-    constructor(surfaceHolder: SurfaceHolder, gameView: GameView) : super()
+    constructor(surfaceHolder: SurfaceHolder, gameView: GameViewParent.GameView) : super()
     {
         this.surfaceHolder = surfaceHolder
         this.gameView = gameView
@@ -46,12 +46,5 @@ class MainThread : Thread
         running = isRunning
     }
 
-    /*public fun onLose()
-    {
-        synchronized(surfaceHolder)
-        {
-            (this as Activity).finishAndRemoveTask()
-        }
-    }*/
 
 }
